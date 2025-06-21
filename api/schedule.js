@@ -12,15 +12,8 @@ module.exports = async (req, res) => {
 
     const calendar = google.calendar({ version: 'v3', auth });
 
-    // List calendars (for debugging, can be removed after stable)
-    const calendarList = await calendar.calendarList.list();
-    calendarList.data.items.forEach(cal => {
-      console.log(`Found calendar: ${cal.summary} - ID: ${cal.id}`);
-    });
-
-    // Use first calendar found (you'll select correct calendar ID once verified)
-    const primaryCalendar = calendarList.data.items[0];
-    console.log('Using calendar:', primaryCalendar.summary, primaryCalendar.id);
+    // DIRECTLY USE THE EXACT CALENDAR ID
+    const calendarId = '9c36ef51822c9b42d7191ea417a504606bc2de69bd1e2864282b3942771bdf80@group.calendar.google.com';
 
     // Insert event
     const now = new Date();
@@ -31,11 +24,11 @@ module.exports = async (req, res) => {
     };
 
     await calendar.events.insert({
-      calendarId: primaryCalendar.id,
+      calendarId: calendarId,
       requestBody: event
     });
 
-    console.log('Event inserted successfully');
+    console.log('Event inserted successfully into calendar:', calendarId);
     res.status(200).send('Schedule function ran successfully.');
   } catch (err) {
     console.error('Schedule error:', {
