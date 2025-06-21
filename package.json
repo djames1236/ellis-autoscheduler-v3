@@ -1,0 +1,8 @@
+{
+  "name": "ellis-autoscheduler-v3-serverless",
+  "version": "1.2.0",
+  "description": "Ellis v3 backend serverless version for Vercel",
+  "dependencies": {
+    "googleapis": "^105.0.0"
+  }
+}
