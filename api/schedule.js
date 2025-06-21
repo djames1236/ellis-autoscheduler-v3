@@ -38,7 +38,12 @@ module.exports = async (req, res) => {
     console.log('Event inserted successfully');
     res.status(200).send('Schedule function ran successfully.');
   } catch (err) {
-    console.error('Schedule error:', JSON.stringify(err, null, 2));
+    console.error('Schedule error:', {
+      message: err?.message,
+      name: err?.name,
+      stack: err?.stack,
+      cause: err?.cause
+    });
     res.status(500).send('Schedule function failed.');
   }
 };
