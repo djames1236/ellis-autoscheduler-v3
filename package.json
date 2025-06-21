@@ -1,15 +1,8 @@
 {
-  "name": "ellis-autoscheduler-v3",
-  "version": "1.1.0",
-  "description": "Ellis v3 backend with OAuth callback",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
+  "name": "ellis-autoscheduler-v3-serverless",
+  "version": "1.2.0",
+  "description": "Ellis v3 backend serverless version for Vercel",
   "dependencies": {
-    "googleapis": "^105.0.0",
-    "express": "^4.18.2",
-    "body-parser": "^1.20.2",
-    "dotenv": "^16.3.1"
+    "googleapis": "^105.0.0"
   }
 }
