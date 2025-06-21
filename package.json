@@ -1,0 +1,8 @@
+{
+  "name": "ellis-autoscheduler-v3-service-account",
+  "version": "2.0.0",
+  "description": "Ellis v3 backend using Google Service Account authentication",
+  "dependencies": {
+    "googleapis": "^105.0.0"
+  }
+}
