@@ -1,0 +1,8 @@
+{
+  "name": "ellis-autoscheduler-v3-serverless-debug-patch",
+  "version": "1.4.1",
+  "description": "Ellis v3 serverless backend with full debug logging for schedule function",
+  "dependencies": {
+    "googleapis": "^105.0.0"
+  }
+}
