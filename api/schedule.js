@@ -2,8 +2,11 @@ const { google } = require('googleapis');
 
 module.exports = async (req, res) => {
   try {
-    const credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY);
+    if (req.method !== 'POST') {
+      return res.status(405).send('Method Not Allowed');
+    }
 
+    const credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY);
     const auth = new google.auth.JWT({
       email: credentials.client_email,
       key: credentials.private_key,
@@ -11,25 +14,28 @@ module.exports = async (req, res) => {
     });
 
     const calendar = google.calendar({ version: 'v3', auth });
-
-    // DIRECTLY USE THE EXACT CALENDAR ID
     const calendarId = '9c36ef51822c9b42d7191ea417a504606bc2de69bd1e2864282b3942771bdf80@group.calendar.google.com';
 
-    // Insert event
-    const now = new Date();
+    const { summary, start, end, description } = req.body;
+
+    if (!summary || !start || !end) {
+      return res.status(400).send('Missing required fields.');
+    }
+
     const event = {
-      summary: 'Ellis Test Event',
-      start: { dateTime: new Date(now.getTime() + 2 * 60 * 1000).toISOString(), timeZone: 'America/Los_Angeles' },
-      end: { dateTime: new Date(now.getTime() + 17 * 60 * 1000).toISOString(), timeZone: 'America/Los_Angeles' }
+      summary,
+      description: description || '',
+      start: { dateTime: start, timeZone: 'America/Los_Angeles' },
+      end: { dateTime: end, timeZone: 'America/Los_Angeles' }
     };
 
     await calendar.events.insert({
-      calendarId: calendarId,
+      calendarId,
       requestBody: event
     });
 
-    console.log('Event inserted successfully into calendar:', calendarId);
-    res.status(200).send('Schedule function ran successfully.');
+    console.log('Event inserted successfully:', summary);
+    res.status(200).send('Event scheduled successfully.');
   } catch (err) {
     console.error('Schedule error:', {
       message: err?.message,
