@@ -1,8 +1,0 @@
-{
-  "name": "ellis-autoscheduler-v3-serverless-complete",
-  "version": "1.4.0",
-  "description": "Ellis v3 backend serverless complete package with scheduling",
-  "dependencies": {
-    "googleapis": "^105.0.0"
-  }
-}
